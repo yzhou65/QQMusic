@@ -14,7 +14,7 @@
         <!--Playing View Controller-->
         <scene sceneID="Br7-pF-jqz">
             <objects>
-                <viewController id="6QW-9k-T4T" customClass="ADPlayingViewController" customModule="QQMusic_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6QW-9k-T4T" customClass="ADPlayingViewController" customModule="QQMusic_Swift3_0" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6b1-ED-YQn"/>
                         <viewControllerLayoutGuide type="bottom" id="3uF-LR-joE"/>
@@ -160,7 +160,7 @@
                                     <constraint firstItem="VQ1-px-wCC" firstAttribute="leading" secondItem="bFW-c7-Mn4" secondAttribute="trailing" constant="30" id="reD-mh-Fns"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1s-Ke-Jlr" customClass="ADLrcLabel" customModule="QQMusic_Swift" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1s-Ke-Jlr" customClass="ADLrcLabel" customModule="QQMusic_Swift3_0" customModuleProvider="target">
                                 <rect key="frame" x="169" y="479" width="38" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="A40-5v-All"/>
@@ -175,7 +175,7 @@
                                     <constraint firstAttribute="width" secondItem="zHE-CB-Fbu" secondAttribute="height" multiplier="1:1" id="e6E-0M-Tgn"/>
                                 </constraints>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfr-7r-6hW" customClass="ADLrcView" customModule="QQMusic_Swift" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfr-7r-6hW" customClass="ADLrcView" customModule="QQMusic_Swift3_0" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="100" width="375" height="417"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </scrollView>
