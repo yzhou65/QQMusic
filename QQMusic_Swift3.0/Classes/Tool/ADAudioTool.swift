@@ -1,6 +1,6 @@
 
 //
-//  ADAudio.swift
+//  ADAudioTool.swift
 //  02-播放音效_Swift
 //
 //  Created by Yue Zhou on 2/20/18.
@@ -10,7 +10,7 @@
 import UIKit
 import AVFoundation
 
-class ADAudio: NSObject {
+class ADAudioTool: NSObject {
     
     private static var soundIDs = [String: SystemSoundID]()
     private static var players = [String: AVAudioPlayer]()
