@@ -58,9 +58,12 @@
 		8A5F866C203C462800B0106D /* 309769.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A5F863D203C462800B0106D /* 309769.mp3 */; };
 		8A5F866D203C462800B0106D /* 339744.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A5F863E203C462800B0106D /* 339744.mp3 */; };
 		8A5F866E203C462800B0106D /* Musics.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A5F863F203C462800B0106D /* Musics.plist */; };
+		920C969992B5C48D1708D262 /* Pods_QQMusic_Swift3_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A548BE45255F58D5ED64E5A /* Pods_QQMusic_Swift3_0.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A548BE45255F58D5ED64E5A /* Pods_QQMusic_Swift3_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QQMusic_Swift3_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A63FF80C35E6A3766940176 /* Pods-QQMusic_Swift3.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QQMusic_Swift3.0.release.xcconfig"; path = "Pods/Target Support Files/Pods-QQMusic_Swift3.0/Pods-QQMusic_Swift3.0.release.xcconfig"; sourceTree = "<group>"; };
 		8A5F85EF203C45E300B0106D /* QQMusic_Swift3.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QQMusic_Swift3.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A5F85F2203C45E300B0106D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A5F85F7203C45E300B0106D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -114,6 +117,7 @@
 		8A5F863D203C462800B0106D /* 309769.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 309769.mp3; sourceTree = "<group>"; };
 		8A5F863E203C462800B0106D /* 339744.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 339744.mp3; sourceTree = "<group>"; };
 		8A5F863F203C462800B0106D /* Musics.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Musics.plist; sourceTree = "<group>"; };
+		A22C251C89E4E6B9D15CDAB5 /* Pods-QQMusic_Swift3.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QQMusic_Swift3.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QQMusic_Swift3.0/Pods-QQMusic_Swift3.0.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,17 +125,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				920C969992B5C48D1708D262 /* Pods_QQMusic_Swift3_0.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		83CC1BCBE309393AA34373D6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A22C251C89E4E6B9D15CDAB5 /* Pods-QQMusic_Swift3.0.debug.xcconfig */,
+				6A63FF80C35E6A3766940176 /* Pods-QQMusic_Swift3.0.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8A5F85E6203C45E200B0106D = {
 			isa = PBXGroup;
 			children = (
 				8A5F85F1203C45E300B0106D /* QQMusic_Swift3.0 */,
 				8A5F85F0203C45E300B0106D /* Products */,
+				83CC1BCBE309393AA34373D6 /* Pods */,
+				C56CCDB2C530C4AD82145441 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -306,6 +322,14 @@
 			path = MP3s;
 			sourceTree = "<group>";
 		};
+		C56CCDB2C530C4AD82145441 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1A548BE45255F58D5ED64E5A /* Pods_QQMusic_Swift3_0.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -313,9 +337,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A5F8601203C45E300B0106D /* Build configuration list for PBXNativeTarget "QQMusic_Swift3.0" */;
 			buildPhases = (
+				F592F1706198387BA8B1F376 /* [CP] Check Pods Manifest.lock */,
 				8A5F85EB203C45E300B0106D /* Sources */,
 				8A5F85EC203C45E300B0106D /* Frameworks */,
 				8A5F85ED203C45E300B0106D /* Resources */,
+				A531E38B1918171E4854C217 /* [CP] Embed Pods Frameworks */,
+				3BAE9C290369B83747CDB28E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -413,6 +440,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3BAE9C290369B83747CDB28E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QQMusic_Swift3.0/Pods-QQMusic_Swift3.0-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A531E38B1918171E4854C217 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QQMusic_Swift3.0/Pods-QQMusic_Swift3.0-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F592F1706198387BA8B1F376 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8A5F85EB203C45E300B0106D /* Sources */ = {
@@ -546,6 +621,7 @@
 		};
 		8A5F8602203C45E300B0106D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A22C251C89E4E6B9D15CDAB5 /* Pods-QQMusic_Swift3.0.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = QQMusic_Swift3.0/Info.plist;
@@ -558,6 +634,7 @@
 		};
 		8A5F8603203C45E300B0106D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A63FF80C35E6A3766940176 /* Pods-QQMusic_Swift3.0.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = QQMusic_Swift3.0/Info.plist;
