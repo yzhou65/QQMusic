@@ -60,12 +60,8 @@ class ADPlayingViewController: UIViewController {
         _ = toolbar.andy_alignInner(orientation: Andy_Align.topRight, referView: self.albumView, size: nil)
         _ = toolbar.andy_alignInner(orientation: Andy_Align.bottomRight, referView: self.albumView, size: nil)
         
-//        toolBar.mas_makeConstraints { (make: MASConstraintMaker?) in
-//            make?.top.equalTo(self.albumView.mas_top)
-//            make?.bottom.equalTo(self.albumView.mas_bottom)
-//            make?.left.equalTo(self.albumView.mas_left)
-//            make?.right.equalTo(self.albumView.mas_right)
-//
+//        toolbar.mas_makeConstraints { (make: MASConstraintMaker?) in
+//            make?.edges.equalTo(self.albumView)
 //        }
     }
     
@@ -83,6 +79,12 @@ class ADPlayingViewController: UIViewController {
         self.iconView.image = UIImage(named: playingMusic.icon!)
         self.songLabel.text = playingMusic.name!
         self.singerLabel.text = playingMusic.singer!
+        
+        // 播放音乐
+        let player = ADAudioTool.audioPlayWith(musicName: playingMusic.filename!)
+        self.totalTimeLabel.text = String(time: player.duration)
+        self.currentTimeLabel.text = String(time: player.currentTime)
+        
     }
     
     

@@ -16,7 +16,7 @@ class ADAudioTool: NSObject {
     private static var players = [String: AVAudioPlayer]()
     
     // MARK: 播放音乐
-    class func audioPlayWith(musicName: String) {
+    class func audioPlayWith(musicName: String) -> AVAudioPlayer {
         // 从字典取出对应musicName的player
         var p = self.players[musicName]
         
@@ -35,6 +35,7 @@ class ADAudioTool: NSObject {
             self.players[musicName] = p
         }
         p!.play()
+        return p!
     }
     
     
