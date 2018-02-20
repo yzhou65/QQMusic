@@ -78,7 +78,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Cr-Gl-3cr" userLabel="bottom view">
                                 <rect key="frame" x="0.0" y="517" width="375" height="150"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Nd-hx-a05" userLabel="下一首">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Nd-hx-a05" userLabel="next">
                                         <rect key="frame" x="249" y="56" width="64" height="64"/>
                                         <state key="normal" image="player_btn_next_normal">
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -89,7 +89,7 @@
                                             <action selector="next:" destination="6QW-9k-T4T" eventType="touchUpInside" id="gl4-xA-c4L"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bFW-c7-Mn4" userLabel="上一首">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bFW-c7-Mn4" userLabel="previous">
                                         <rect key="frame" x="61" y="56" width="64" height="64"/>
                                         <state key="normal" image="player_btn_pre_normal">
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -100,28 +100,30 @@
                                             <action selector="previous:" destination="6QW-9k-T4T" eventType="touchUpInside" id="Tnv-At-Hd2"/>
                                         </connections>
                                     </button>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="FRW-5e-Xbr" userLabel="进度条">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="FRW-5e-Xbr" userLabel="slider">
                                         <rect key="frame" x="48" y="6" width="279" height="31"/>
+                                        <gestureRecognizers/>
                                         <color key="minimumTrackTintColor" red="0.14901960780000001" green="0.73333333329999995" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <action selector="endSlider:" destination="6QW-9k-T4T" eventType="touchUpInside" id="rqF-px-1CK"/>
+                                            <action selector="endDraggingSlider:" destination="6QW-9k-T4T" eventType="touchUpInside" id="svM-Yn-cM1"/>
                                             <action selector="sliderValueChanged:" destination="6QW-9k-T4T" eventType="valueChanged" id="nQE-Fm-0J0"/>
-                                            <action selector="startSlider:" destination="6QW-9k-T4T" eventType="touchDown" id="Sp1-Ne-APp"/>
+                                            <action selector="startDraggingSlider:" destination="6QW-9k-T4T" eventType="touchDown" id="HvY-ZL-dhc"/>
+                                            <outletCollection property="gestureRecognizers" destination="ttd-Z6-LK7" appends="YES" id="1Ot-YV-EtD"/>
                                         </connections>
                                     </slider>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02:30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9of-pB-XEl" userLabel="当前时间">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02:30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9of-pB-XEl" userLabel="currentTime">
                                         <rect key="frame" x="0.0" y="14" width="50" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="04:24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SyX-P3-Iqc" userLabel="总时间">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="04:24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SyX-P3-Iqc" userLabel="duration">
                                         <rect key="frame" x="325" y="14" width="50" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQ1-px-wCC" userLabel="播放和暂停">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQ1-px-wCC" userLabel="play/pause">
                                         <rect key="frame" x="155" y="56" width="64" height="64"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="64" id="WzG-r3-0J3"/>
@@ -218,9 +220,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bLc-i5-aUg" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="IBo-GU-Xiz">
+                <tapGestureRecognizer id="ttd-Z6-LK7">
                     <connections>
-                        <action selector="sliderClick:" destination="6QW-9k-T4T" id="KkF-TD-LIw"/>
+                        <action selector="sliderTapped:" destination="6QW-9k-T4T" id="APO-Uv-Ted"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

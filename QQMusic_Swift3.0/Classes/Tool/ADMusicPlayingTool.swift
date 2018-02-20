@@ -32,6 +32,9 @@ class ADMusicPlayingTool: NSObject {
         return allMusic[cur + 1 >= allMusic.count ? 0 : cur + 1]
     }
     
+    /**
+     * 返回上一首歌
+     */
     class func previousMusic() -> ADMusic {
         // 拿到当前playingMusic的index
         let cur = allMusic.index(of: playingMusic)!
