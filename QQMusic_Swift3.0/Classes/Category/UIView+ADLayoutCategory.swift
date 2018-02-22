@@ -1,6 +1,6 @@
 //
-//  UIView+AndyLayoutCategory.swift
-//  AndyLayout
+//  UIView+ADLayoutCategory.swift
+//  ADLayout
 //
 //  Created by Yue Zhou on 7/22/17.
 //  Copyright © 2017 Yue Zhou. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-public enum Andy_Align {
+public enum AD_Align {
     case topLeft
     case topRight
     case topCenter
@@ -19,8 +19,8 @@ public enum Andy_Align {
     case centerRight
     case center
     
-    fileprivate func layoutAttributes(isInner: Bool, isVertical: Bool) -> Andy_LayoutAttribute {
-        let attrs = Andy_LayoutAttribute()
+    fileprivate func layoutAttributes(isInner: Bool, isVertical: Bool) -> AD_LayoutAttribute {
+        let attrs = AD_LayoutAttribute()
         
         switch self {
             case .topLeft:
@@ -83,7 +83,7 @@ public enum Andy_Align {
                 return isInner ? attrs : attrs.horizontals(from: .left, to: .right)
             
             case .center:
-                return Andy_LayoutAttribute(horizontal: .centerX, referHorizontal: .centerX, vertical: .centerY, referVertical: .centerY)
+                return AD_LayoutAttribute(horizontal: .centerX, referHorizontal: .centerX, vertical: .centerY, referVertical: .centerY)
         }
     }
 }
@@ -95,7 +95,7 @@ extension UIView {
       - parameter toFill: the superview to be filled up
       - returns: constraints
      */
-    public func andy_fillSuper(_ toFill: UIView) -> [NSLayoutConstraint] {
+    public func ad_fillSuper(_ toFill: UIView) -> [NSLayoutConstraint] {
         translatesAutoresizingMaskIntoConstraints = false
         
         var cons = [NSLayoutConstraint]()
@@ -107,32 +107,32 @@ extension UIView {
     }
     
     
-    public func andy_alignInner(orientation: Andy_Align, referView: UIView, size: CGSize?, offset: CGPoint = CGPoint.zero) -> [NSLayoutConstraint] {
-        return andy_alignRelative(to: referView, attributes: orientation.layoutAttributes(isInner: true, isVertical: true), size: size, offset: offset)
+    public func ad_alignInner(orientation: AD_Align, referView: UIView, size: CGSize?, offset: CGPoint = CGPoint.zero) -> [NSLayoutConstraint] {
+        return ad_alignRelative(to: referView, attributes: orientation.layoutAttributes(isInner: true, isVertical: true), size: size, offset: offset)
     }
     
     
-    public func andy_alignOuterHorizontal(orientation: Andy_Align, referView: UIView, size: CGSize?, offset: CGPoint = CGPoint.zero) -> [NSLayoutConstraint] {
+    public func ad_alignOuterHorizontal(orientation: AD_Align, referView: UIView, size: CGSize?, offset: CGPoint = CGPoint.zero) -> [NSLayoutConstraint] {
         
-        return andy_alignRelative(to: referView, attributes: orientation.layoutAttributes(isInner: false, isVertical: false), size: size, offset: offset)
+        return ad_alignRelative(to: referView, attributes: orientation.layoutAttributes(isInner: false, isVertical: false), size: size, offset: offset)
     }
     
     
     /// tile the subviews inside the caller view
-    public func andy_tileHorizontal(_ subviews: [UIView], insets: UIEdgeInsets) -> [NSLayoutConstraint] {
+    public func ad_tileHorizontal(_ subviews: [UIView], insets: UIEdgeInsets) -> [NSLayoutConstraint] {
         assert(!subviews.isEmpty, "the subviews must have at least one element.")
         
         var cons = [NSLayoutConstraint]()
         let first = subviews[0]
-        _ = first.andy_alignInner(orientation: Andy_Align.topLeft, referView: self, size: nil, offset: CGPoint(x: insets.left, y: insets.top))
+        _ = first.ad_alignInner(orientation: AD_Align.topLeft, referView: self, size: nil, offset: CGPoint(x: insets.left, y: insets.top))
         cons.append(NSLayoutConstraint(item: first, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: -insets.bottom))
         
         // append the other subviews' constraints
         var previous = first
         for i in 1..<subviews.count {
             let subview = subviews[i]
-            cons += subview.andy_sizeConstraints(first)
-            _ = subview.andy_alignOuterHorizontal(orientation: Andy_Align.topRight, referView: previous, size: nil, offset: CGPoint(x: insets.right, y: 0))
+            cons += subview.ad_sizeConstraints(first)
+            _ = subview.ad_alignOuterHorizontal(orientation: AD_Align.topRight, referView: previous, size: nil, offset: CGPoint(x: insets.right, y: 0))
             previous = subview
         }
         
@@ -143,21 +143,21 @@ extension UIView {
     }
     
     
-    public func andy_VerticalTile(_ subviews: [UIView], insets: UIEdgeInsets) -> [NSLayoutConstraint] {
+    public func ad_VerticalTile(_ subviews: [UIView], insets: UIEdgeInsets) -> [NSLayoutConstraint] {
         
         assert(!subviews.isEmpty, "views should not be empty")
         
         var cons = [NSLayoutConstraint]()
         
         let first = subviews[0]
-        _ = first.andy_alignInner(orientation: Andy_Align.topLeft, referView: self, size: nil, offset: CGPoint(x: insets.left, y: insets.top))
+        _ = first.ad_alignInner(orientation: AD_Align.topLeft, referView: self, size: nil, offset: CGPoint(x: insets.left, y: insets.top))
         cons.append(NSLayoutConstraint(item: first, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: -insets.right))
         
         var previous = first
         for i in 1..<subviews.count {
             let subview = subviews[i]
-            cons += subview.andy_sizeConstraints(first)
-            _ = subview.andy_alignOuterVertical(orientation: Andy_Align.bottomLeft, referView: previous, size: nil, offset: CGPoint(x: 0, y: insets.bottom))
+            cons += subview.ad_sizeConstraints(first)
+            _ = subview.ad_alignOuterVertical(orientation: AD_Align.bottomLeft, referView: previous, size: nil, offset: CGPoint(x: 0, y: insets.bottom))
             previous = subview
         }
         
@@ -173,12 +173,12 @@ extension UIView {
      * The caller is aligned vertically to a referview
      - parameter
      */
-    public func andy_alignOuterVertical(orientation: Andy_Align, referView: UIView, size: CGSize?, offset: CGPoint = CGPoint.zero) -> [NSLayoutConstraint] {
-        return andy_alignRelative(to: referView, attributes: orientation.layoutAttributes(isInner: false, isVertical: true), size: size, offset: offset)
+    public func ad_alignOuterVertical(orientation: AD_Align, referView: UIView, size: CGSize?, offset: CGPoint = CGPoint.zero) -> [NSLayoutConstraint] {
+        return ad_alignRelative(to: referView, attributes: orientation.layoutAttributes(isInner: false, isVertical: true), size: size, offset: offset)
     }
     
     
-    public func andy_showConstraint(_ constraints: [NSLayoutConstraint], attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
+    public func ad_showConstraint(_ constraints: [NSLayoutConstraint], attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
         for constraint in constraints {
             if constraint.firstItem as! NSObject == self && constraint.firstAttribute == attribute {
                 return constraint
@@ -196,14 +196,14 @@ extension UIView {
      - parameter offset: the offset of the caller to referview
      - returns: constraints
      */
-    fileprivate func andy_alignRelative(to referView: UIView, attributes: Andy_LayoutAttribute, size: CGSize?, offset: CGPoint) -> [NSLayoutConstraint] {
+    fileprivate func ad_alignRelative(to referView: UIView, attributes: AD_LayoutAttribute, size: CGSize?, offset: CGPoint) -> [NSLayoutConstraint] {
         translatesAutoresizingMaskIntoConstraints = false
         
         var cons = [NSLayoutConstraint]()
-        cons += andy_locationRelative(to: referView, attributes: attributes, offset: offset)
+        cons += ad_locationRelative(to: referView, attributes: attributes, offset: offset)
         
         if size != nil {
-            cons += andy_sizeConstraints(size!)
+            cons += ad_sizeConstraints(size!)
         }
         
         superview?.addConstraints(cons)
@@ -213,7 +213,7 @@ extension UIView {
     
     
     /// Returns the location constraints of the caller relative to a referview
-    fileprivate func andy_locationRelative(to referView: UIView, attributes: Andy_LayoutAttribute, offset: CGPoint) -> [NSLayoutConstraint] {
+    fileprivate func ad_locationRelative(to referView: UIView, attributes: AD_LayoutAttribute, offset: CGPoint) -> [NSLayoutConstraint] {
         
         var cons = [NSLayoutConstraint]()
         cons.append(NSLayoutConstraint(item: self, attribute: attributes.vertical, relatedBy: NSLayoutRelation.equal, toItem: referView, attribute: attributes.vertical, multiplier: 1.0, constant: offset.y))
@@ -223,7 +223,7 @@ extension UIView {
     
     
     /// Returns the size constraints of the caller relative to a referview
-    fileprivate func andy_sizeConstraints(_ referView: UIView) -> [NSLayoutConstraint] {
+    fileprivate func ad_sizeConstraints(_ referView: UIView) -> [NSLayoutConstraint] {
         
         var cons = [NSLayoutConstraint]()
         cons.append(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: referView, attribute: NSLayoutAttribute.width, multiplier: 1.0, constant: 0))
@@ -234,7 +234,7 @@ extension UIView {
     
     
     // returns the size constraints of the caller
-    fileprivate func andy_sizeConstraints(_ size: CGSize) -> [NSLayoutConstraint] {
+    fileprivate func ad_sizeConstraints(_ size: CGSize) -> [NSLayoutConstraint] {
         var cons = [NSLayoutConstraint]()
         cons.append(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: size.width))
         cons.append(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: size.height))
@@ -244,7 +244,7 @@ extension UIView {
 }
 
 ///  layout properties
-private final class Andy_LayoutAttribute {
+private final class AD_LayoutAttribute {
     var horizontal:         NSLayoutAttribute
     var referHorizontal:    NSLayoutAttribute
     var vertical:           NSLayoutAttribute

@@ -58,9 +58,13 @@
 		8A5F866D203C462800B0106D /* 339744.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A5F863E203C462800B0106D /* 339744.mp3 */; };
 		8A5F866E203C462800B0106D /* Musics.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A5F863F203C462800B0106D /* Musics.plist */; };
 		8A5F8674203C57BB00B0106D /* NSObject+ADKeyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5F8672203C57BA00B0106D /* NSObject+ADKeyValue.swift */; };
-		8A5F8675203C57BB00B0106D /* UIView+AndyLayoutCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5F8673203C57BB00B0106D /* UIView+AndyLayoutCategory.swift */; };
+		8A5F8675203C57BB00B0106D /* UIView+ADLayoutCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5F8673203C57BB00B0106D /* UIView+ADLayoutCategory.swift */; };
 		8A5F8677203C57EE00B0106D /* ADMusicPlayingTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5F8676203C57EE00B0106D /* ADMusicPlayingTool.swift */; };
 		8A5F8679203C634600B0106D /* String+ADTimeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5F8678203C634600B0106D /* String+ADTimeExtension.swift */; };
+		8A5F867F203E1A6200B0106D /* CALayer+PauseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5F867E203E1A6100B0106D /* CALayer+PauseAnimation.swift */; };
+		8A685553203E47B7005F2069 /* ADLrcCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A685552203E47B7005F2069 /* ADLrcCell.swift */; };
+		8A766E1B203E8233006C592E /* ADLrcTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A766E1A203E8233006C592E /* ADLrcTool.swift */; };
+		8A766E1D203E85BA006C592E /* ADLrcline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A766E1C203E85BA006C592E /* ADLrcline.swift */; };
 		920C969992B5C48D1708D262 /* Pods_QQMusic_Swift3_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A548BE45255F58D5ED64E5A /* Pods_QQMusic_Swift3_0.framework */; };
 /* End PBXBuildFile section */
 
@@ -120,9 +124,13 @@
 		8A5F863E203C462800B0106D /* 339744.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 339744.mp3; sourceTree = "<group>"; };
 		8A5F863F203C462800B0106D /* Musics.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Musics.plist; sourceTree = "<group>"; };
 		8A5F8672203C57BA00B0106D /* NSObject+ADKeyValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+ADKeyValue.swift"; sourceTree = "<group>"; };
-		8A5F8673203C57BB00B0106D /* UIView+AndyLayoutCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+AndyLayoutCategory.swift"; sourceTree = "<group>"; };
+		8A5F8673203C57BB00B0106D /* UIView+ADLayoutCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ADLayoutCategory.swift"; sourceTree = "<group>"; };
 		8A5F8676203C57EE00B0106D /* ADMusicPlayingTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADMusicPlayingTool.swift; sourceTree = "<group>"; };
 		8A5F8678203C634600B0106D /* String+ADTimeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ADTimeExtension.swift"; sourceTree = "<group>"; };
+		8A5F867E203E1A6100B0106D /* CALayer+PauseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+PauseAnimation.swift"; sourceTree = "<group>"; };
+		8A685552203E47B7005F2069 /* ADLrcCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADLrcCell.swift; sourceTree = "<group>"; };
+		8A766E1A203E8233006C592E /* ADLrcTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADLrcTool.swift; sourceTree = "<group>"; };
+		8A766E1C203E85BA006C592E /* ADLrcline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADLrcline.swift; sourceTree = "<group>"; };
 		A22C251C89E4E6B9D15CDAB5 /* Pods-QQMusic_Swift3.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QQMusic_Swift3.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QQMusic_Swift3.0/Pods-QQMusic_Swift3.0.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				8A5F8608203C462800B0106D /* ADMusic.swift */,
+				8A766E1C203E85BA006C592E /* ADLrcline.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -220,6 +229,7 @@
 			children = (
 				8A5F8676203C57EE00B0106D /* ADMusicPlayingTool.swift */,
 				8A5F860E203C462800B0106D /* ADAudioTool.swift */,
+				8A766E1A203E8233006C592E /* ADLrcTool.swift */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -228,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				8A5F8611203C462800B0106D /* ADLrcLabel.swift */,
+				8A685552203E47B7005F2069 /* ADLrcCell.swift */,
 				8A5F8612203C462800B0106D /* ADLrcView.swift */,
 			);
 			path = View;
@@ -309,8 +320,9 @@
 			isa = PBXGroup;
 			children = (
 				8A5F8672203C57BA00B0106D /* NSObject+ADKeyValue.swift */,
-				8A5F8673203C57BB00B0106D /* UIView+AndyLayoutCategory.swift */,
+				8A5F8673203C57BB00B0106D /* UIView+ADLayoutCategory.swift */,
 				8A5F8678203C634600B0106D /* String+ADTimeExtension.swift */,
+				8A5F867E203E1A6100B0106D /* CALayer+PauseAnimation.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -491,11 +503,15 @@
 				8A5F85F3203C45E300B0106D /* AppDelegate.swift in Sources */,
 				8A5F8645203C462800B0106D /* ADLrcView.swift in Sources */,
 				8A5F8674203C57BB00B0106D /* NSObject+ADKeyValue.swift in Sources */,
+				8A766E1B203E8233006C592E /* ADLrcTool.swift in Sources */,
 				8A5F8644203C462800B0106D /* ADLrcLabel.swift in Sources */,
+				8A5F867F203E1A6200B0106D /* CALayer+PauseAnimation.swift in Sources */,
 				8A5F8679203C634600B0106D /* String+ADTimeExtension.swift in Sources */,
 				8A5F8641203C462800B0106D /* ADMusic.swift in Sources */,
+				8A766E1D203E85BA006C592E /* ADLrcline.swift in Sources */,
 				8A5F8640203C462800B0106D /* ADPlayingViewController.swift in Sources */,
-				8A5F8675203C57BB00B0106D /* UIView+AndyLayoutCategory.swift in Sources */,
+				8A685553203E47B7005F2069 /* ADLrcCell.swift in Sources */,
+				8A5F8675203C57BB00B0106D /* UIView+ADLayoutCategory.swift in Sources */,
 				8A5F8677203C57EE00B0106D /* ADMusicPlayingTool.swift in Sources */,
 				8A5F8642203C462800B0106D /* ADAudioTool.swift in Sources */,
 			);

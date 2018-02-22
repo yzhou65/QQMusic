@@ -12,13 +12,20 @@ class ADMusicPlayingTool: NSObject {
 
     private static var allMusic: [ADMusic] = ADMusic.objectsWithFile(named: "Musics.plist") as! [ADMusic]
     
-    static var playingMusic: ADMusic = ADMusicPlayingTool.allMusic[1]
+    private static var playingMusic: ADMusic = ADMusicPlayingTool.allMusic[3]
     
     /**
      * 设置当前正在播放的歌曲
      */
     class func setPlayingMusic(with music: ADMusic) {
         ADMusicPlayingTool.playingMusic = music
+    }
+    
+    /**
+     * 返回当前正在播放的歌曲
+     */
+    class func getPlayingMusic() -> ADMusic {
+        return ADMusicPlayingTool.playingMusic
     }
     
     /**
@@ -40,6 +47,6 @@ class ADMusicPlayingTool: NSObject {
         let cur = allMusic.index(of: playingMusic)!
         
         // 上一首歌
-        return allMusic[cur - 1 <= 0 ? allMusic.count - 1 : cur - 1]
+        return allMusic[cur - 1 < 0 ? allMusic.count - 1 : cur - 1]
     }
 }
