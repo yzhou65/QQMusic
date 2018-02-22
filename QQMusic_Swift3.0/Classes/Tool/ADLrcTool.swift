@@ -30,7 +30,7 @@ class ADLrcTool: NSObject {
                 
                 // 将一句歌词字符串转为ADLrcline模型
                 let lrcline: ADLrcline = ADLrcline(lrclineString: lrclineString)
-                print(lrcline)
+//                print(lrcline)
                 lrclines.append(lrcline)
             }
         } catch {

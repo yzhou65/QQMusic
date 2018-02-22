@@ -12,29 +12,49 @@ private let id = "cell"
 
 class ADLrcCell: UITableViewCell {
     
+    // 保证lrcLabel是readonly. 这句意思就是让lrcLabel的setter是private
+    private(set) var lrcLabel: ADLrcLabel?
+    
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupLrcLabel()
+    }
+    
+    
+    private func setupLrcLabel() {
+        let lrcLabel = ADLrcLabel()
+        self.contentView.addSubview(lrcLabel)
+        lrcLabel.font = UIFont.systemFont(ofSize: 14.0)
+        lrcLabel.textColor = UIColor.white
+        lrcLabel.textAlignment = NSTextAlignment.center
+        lrcLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 注意referView == self.contentView而不是self
+        _ = lrcLabel.ad_alignInner(orientation: AD_Align.center, referView: self.contentView, size: nil)
+        self.lrcLabel = lrcLabel
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     class func lrcCell(with tableView: UITableView) -> ADLrcCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: id) as? ADLrcCell
         if cell == nil {
             cell = ADLrcCell(style: UITableViewCellStyle.default, reuseIdentifier: id)
             cell!.backgroundColor = UIColor.clear
-            cell!.textLabel?.textColor = UIColor.white
-            cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
-            cell!.textLabel?.textAlignment = NSTextAlignment.center
-            cell?.selectionStyle = UITableViewCellSelectionStyle.none
+            
+            // 要使用自定义的lrcLabel
+//            cell!.textLabel?.textColor = UIColor.white
+//            cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
+//            cell!.textLabel?.textAlignment = NSTextAlignment.center
+            cell!.selectionStyle = UITableViewCellSelectionStyle.none
         }
         return cell!
     }
     
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
 
 }

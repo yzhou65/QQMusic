@@ -10,44 +10,68 @@ import UIKit
 
 class ADLrcView: UIScrollView, UITableViewDataSource {
     // 当前播放的歌词的index
-    var currentIndex: Int?
+    var currentIndex: Int = 0
 
     // 当前播放的时间
     var currentTime: TimeInterval? {
         didSet {
             // 用当前时间和歌词进行匹配
             let count = self.lrcList.count
-            for i in 0..<count - 1 {
-                let lrcLine = self.lrcList[i]
-//                var nextLine: ADLrcline?
-//                if i + 1 < count {
-//                    nextLine = self.lrcList[i + 1]
-//                }
-                let nextLine = self.lrcList[i + 1]
+            for i in 0..<count {
+                let curLine = self.lrcList[i]
+                let next = i + 1
+                if next >= count {
+                    return
+                }
+                let nextLine = self.lrcList[next]
                 
                 // 用当前时间和i位置以及i+1位置的歌词进行比较
-                if (self.currentIndex != i && currentTime! >= lrcLine.time! && currentTime! < nextLine.time!) {
-                    self.tableView.scrollToRow(at: IndexPath(row: i, section: 0), at: UITableViewScrollPosition.top, animated: true)
+                if (self.currentIndex != i && currentTime! >= curLine.time! && currentTime! < nextLine.time!) {
+                    let indexPath = IndexPath(row: i, section: 0)
+                    let previousIndexPath = IndexPath(row: self.currentIndex, section: 0)
+                    
+                    // 要先更新currentIndex,再刷新这一行和前一行, 否则播放过的歌词字体会是20, 未播的变成14
                     self.currentIndex = i
                     
-                    // 刷新
+                    // 先刷新两行歌词, 再滚动
+                    self.tableView.reloadRows(at: [indexPath, previousIndexPath], with: UITableViewRowAnimation.none)
                     
+                    // 滚动到当前句的歌词
+                    self.tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: true)
+                    
+                    // 设置外面歌词的label的显示歌词
+                    self.lrcLabel!.text = curLine.text
+
                     break
                 }
                 
                 
-                // 让正在播放的这句歌词字体
+                // 根据进度, 让正在播放的这句歌词字体逐渐填充自己
                 if self.currentIndex == i {
+                    let indexPath = IndexPath(row: i, section: 0)
+//                    print(self.tableView)
+//                    print("\(self.tableView.cellForRow(at: indexPath)), i = \(i)")
+                    let cell = self.tableView.cellForRow(at: indexPath) as? ADLrcCell
                     
+                    let progress = CGFloat(currentTime! - curLine.time!) / CGFloat(nextLine.time! - curLine.time!)
+                    cell?.lrcLabel?.progress = progress
+                
+                    // 更新外面歌词的label的进度
+                    self.lrcLabel?.progress = progress
                 }
             }
         }
     }
+    
+    
     var lrcLabel: ADLrcLabel?
     var duration: CGFloat?
     
     var lrcname: String? {
         didSet {
+            // 重置currentIndex. 否则歌曲切换会出问题
+            self.currentIndex = 0
+            
             // 解析歌词
             self.lrcList = ADLrcTool.lrcTool(with: lrcname!)
             
@@ -100,6 +124,7 @@ class ADLrcView: UIScrollView, UITableViewDataSource {
     
     // MARK: UITableViewDataSource数据源
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        print(self.lrcList.count)
         return self.lrcList.count
     }
     
@@ -107,8 +132,17 @@ class ADLrcView: UIScrollView, UITableViewDataSource {
         // 创建cell
         let cell = ADLrcCell.lrcCell(with: tableView)
         
+        // 字体
+        if indexPath.row == self.currentIndex {
+            cell.lrcLabel!.font = UIFont.systemFont(ofSize: 20.0)
+        } else {
+            cell.lrcLabel!.font = UIFont.systemFont(ofSize: 14.0)
+            cell.lrcLabel!.progress = 0
+        }
+        
         // 给cell设置数据
-        cell.textLabel?.text = "\(self.lrcList[indexPath.row].text!)"
+        cell.lrcLabel!.text = "\(self.lrcList[indexPath.row].text!)"
+        
         return cell
     }
     

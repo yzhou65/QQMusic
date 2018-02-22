@@ -162,8 +162,8 @@
                                     <constraint firstItem="VQ1-px-wCC" firstAttribute="leading" secondItem="bFW-c7-Mn4" secondAttribute="trailing" constant="30" id="reD-mh-Fns"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1s-Ke-Jlr" customClass="ADLrcLabel" customModule="QQMusic_Swift3_0" customModuleProvider="target">
-                                <rect key="frame" x="169" y="479" width="38" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1s-Ke-Jlr" customClass="ADLrcLabel" customModule="QQMusic_Swift3_0" customModuleProvider="target">
+                                <rect key="frame" x="188" y="479" width="0.0" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="A40-5v-All"/>
                                 </constraints>

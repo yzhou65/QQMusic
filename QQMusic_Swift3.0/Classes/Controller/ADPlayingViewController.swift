@@ -55,6 +55,8 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate {
         // 设置lrcView的contentSize
         self.lrcView.contentSize = CGSize(width: self.view.bounds.width * 2, height: 0)
         
+        // 让storyboard里的lrcLabel和lrcView里的lrcLabel同步
+        self.lrcView.lrcLabel = self.lrcLabel
     }
     
     override func viewWillLayoutSubviews() {
@@ -202,6 +204,7 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate {
         // 更新歌曲播放的时间. 如果只更新歌曲播放时间就要等一秒(等定时器)才能更新文字, 所以可以手动updateProgress
         self.currentPlayer!.currentTime = Double(ratio) * self.currentPlayer!.duration
         updateProgress()
+//        updateLrc()
     }
     
     
@@ -224,12 +227,14 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate {
             self.currentPlayer!.pause()
             self.playOrPauseBtn.isSelected = false
             self.removeProgressTimer()  // 移除progressTimer
+            self.removeLrcTimer()   // 移除歌词的timer
             self.iconView.layer.pauseAnimation()    // 暂停动画
             
         } else {    // 播放
             self.currentPlayer!.play()
             self.playOrPauseBtn.isSelected = true
             self.addProgressTimer()     // 恢复progressTimer
+            self.addLrcTimer()          // 恢复歌词的timer
             self.iconView.layer.resumeAnimation()   // 恢复动画
         }
     }
