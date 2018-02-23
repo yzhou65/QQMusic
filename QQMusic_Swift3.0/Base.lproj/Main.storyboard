@@ -54,10 +54,12 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="17A-kn-lKW">
                                         <rect key="frame" x="315" y="30" width="40" height="40"/>
-                                        <state key="normal" image="main_tab_more">
-                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <state key="highlighted" image="main_tab_more_h"/>
+                                        <state key="normal" title="常规"/>
+                                        <state key="disabled" title="单曲"/>
+                                        <state key="selected" title="随机"/>
+                                        <connections>
+                                            <action selector="toggleMode:" destination="6QW-9k-T4T" eventType="touchUpInside" id="MYG-20-Xyz"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -216,6 +218,7 @@
                         <outlet property="lrcLabel" destination="j1s-Ke-Jlr" id="60l-DX-3aQ"/>
                         <outlet property="lrcView" destination="pfr-7r-6hW" id="sPD-6p-x2m"/>
                         <outlet property="playOrPauseBtn" destination="VQ1-px-wCC" id="yBL-kn-tYI"/>
+                        <outlet property="playingModeButton" destination="17A-kn-lKW" id="bh0-At-ubE"/>
                         <outlet property="progressSlider" destination="FRW-5e-Xbr" id="rQ9-2C-f2R"/>
                         <outlet property="singerLabel" destination="lnV-dP-rca" id="Gga-UQ-0t3"/>
                         <outlet property="songLabel" destination="WTT-z8-a9H" id="mIP-XI-dme"/>
@@ -234,8 +237,6 @@
     </scenes>
     <resources>
         <image name="lkq.jpg" width="350" height="350"/>
-        <image name="main_tab_more" width="45" height="45"/>
-        <image name="main_tab_more_h" width="45" height="45"/>
         <image name="miniplayer_btn_playlist_close" width="40" height="40"/>
         <image name="miniplayer_btn_playlist_close_b" width="40" height="40"/>
         <image name="player_btn_next_highlight" width="64" height="64"/>

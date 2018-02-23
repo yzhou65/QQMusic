@@ -19,6 +19,7 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate, AVAudioPl
     @IBOutlet weak var singerLabel: UILabel!
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var totalTimeLabel: UILabel!
+    @IBOutlet weak var playingModeButton: UIButton!
     
     // 滑块
     @IBOutlet weak var progressSlider: UISlider!
@@ -274,6 +275,11 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate, AVAudioPl
         }
     }
     
+    @IBAction func toggleMode(_ sender: UIButton?) {
+        
+        self.playingModeButton.isSelected = !self.playingModeButton.isSelected
+    }
+    
     private func playMusic(with music: ADMusic) {
         // 先停止上一首正在播放的歌曲
         let playing = ADMusicPlayingTool.getPlayingMusic()
@@ -315,8 +321,16 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate, AVAudioPl
     // MARK: AVAudioPlayerDelegate 代理
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if flag {
-            self.next(nil)
+            if self.playingModeButton.isSelected {
+//                self.playMusic(with: ADMusicPlayingTool.getPlayingMusic())
+                
+                let random = ADMusicPlayingTool.randomMusic()
+                self.playMusic(with: random)
+            } else {
+                self.next(nil)
+            }
         }
+        
     }
     
     // MARK: 设置锁屏界面. 在ADLrcView里面设置锁屏界面更好

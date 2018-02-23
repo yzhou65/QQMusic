@@ -65,6 +65,7 @@
 		8A685553203E47B7005F2069 /* ADLrcCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A685552203E47B7005F2069 /* ADLrcCell.swift */; };
 		8A766E1B203E8233006C592E /* ADLrcTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A766E1A203E8233006C592E /* ADLrcTool.swift */; };
 		8A766E1D203E85BA006C592E /* ADLrcline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A766E1C203E85BA006C592E /* ADLrcline.swift */; };
+		8A766E1F20406CB0006C592E /* ADPlayingModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A766E1E20406CB0006C592E /* ADPlayingModeButton.swift */; };
 		920C969992B5C48D1708D262 /* Pods_QQMusic_Swift3_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A548BE45255F58D5ED64E5A /* Pods_QQMusic_Swift3_0.framework */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +132,7 @@
 		8A685552203E47B7005F2069 /* ADLrcCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADLrcCell.swift; sourceTree = "<group>"; };
 		8A766E1A203E8233006C592E /* ADLrcTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADLrcTool.swift; sourceTree = "<group>"; };
 		8A766E1C203E85BA006C592E /* ADLrcline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADLrcline.swift; sourceTree = "<group>"; };
+		8A766E1E20406CB0006C592E /* ADPlayingModeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADPlayingModeButton.swift; sourceTree = "<group>"; };
 		A22C251C89E4E6B9D15CDAB5 /* Pods-QQMusic_Swift3.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QQMusic_Swift3.0.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QQMusic_Swift3.0/Pods-QQMusic_Swift3.0.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,6 +242,7 @@
 				8A5F8611203C462800B0106D /* ADLrcLabel.swift */,
 				8A685552203E47B7005F2069 /* ADLrcCell.swift */,
 				8A5F8612203C462800B0106D /* ADLrcView.swift */,
+				8A766E1E20406CB0006C592E /* ADPlayingModeButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				8A5F8679203C634600B0106D /* String+ADTimeExtension.swift in Sources */,
 				8A5F8641203C462800B0106D /* ADMusic.swift in Sources */,
 				8A766E1D203E85BA006C592E /* ADLrcline.swift in Sources */,
+				8A766E1F20406CB0006C592E /* ADPlayingModeButton.swift in Sources */,
 				8A5F8640203C462800B0106D /* ADPlayingViewController.swift in Sources */,
 				8A685553203E47B7005F2069 /* ADLrcCell.swift in Sources */,
 				8A5F8675203C57BB00B0106D /* UIView+ADLayoutCategory.swift in Sources */,

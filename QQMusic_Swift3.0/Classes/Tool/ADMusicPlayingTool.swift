@@ -12,12 +12,15 @@ class ADMusicPlayingTool: NSObject {
 
     private static var allMusic: [ADMusic] = ADMusic.objectsWithFile(named: "Musics.plist") as! [ADMusic]
     
-    private static var playingMusic: ADMusic = ADMusicPlayingTool.allMusic[3]
+    private static var curIndex = 3
+    private static var playingMusic: ADMusic = ADMusicPlayingTool.allMusic[curIndex]
+    
     
     /**
      * 设置当前正在播放的歌曲
      */
     class func setPlayingMusic(with music: ADMusic) {
+        ADMusicPlayingTool.curIndex = allMusic.index(of: music)!
         ADMusicPlayingTool.playingMusic = music
     }
     
@@ -36,6 +39,7 @@ class ADMusicPlayingTool: NSObject {
         let cur = allMusic.index(of: playingMusic)!
         
         // 下一首歌
+        curIndex = cur + 1 >= allMusic.count ? 0 : cur + 1
         return allMusic[cur + 1 >= allMusic.count ? 0 : cur + 1]
     }
     
@@ -47,6 +51,20 @@ class ADMusicPlayingTool: NSObject {
         let cur = allMusic.index(of: playingMusic)!
         
         // 上一首歌
+        curIndex = cur - 1 < 0 ? allMusic.count - 1 : cur - 1
         return allMusic[cur - 1 < 0 ? allMusic.count - 1 : cur - 1]
+    }
+    
+    /**
+     * 随机返回一首歌
+     */
+    class func randomMusic() -> ADMusic {
+        var random = arc4random_uniform(UInt32(allMusic.count))
+        while random == UInt32(curIndex) {
+            random = arc4random_uniform(UInt32(allMusic.count))
+        }
+        
+        curIndex = Int(random)
+        return allMusic[Int(random)]
     }
 }
