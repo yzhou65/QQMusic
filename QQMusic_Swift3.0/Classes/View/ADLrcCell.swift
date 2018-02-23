@@ -33,6 +33,8 @@ class ADLrcCell: UITableViewCell {
         // 注意referView == self.contentView而不是self
         _ = lrcLabel.ad_alignInner(orientation: AD_Align.center, referView: self.contentView, size: nil)
         self.lrcLabel = lrcLabel
+        
+        self.contentView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,6 +53,7 @@ class ADLrcCell: UITableViewCell {
 //            cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
 //            cell!.textLabel?.textAlignment = NSTextAlignment.center
             cell!.selectionStyle = UITableViewCellSelectionStyle.none
+            
         }
         return cell!
     }

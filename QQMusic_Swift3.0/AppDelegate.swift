@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // 获取音频会话
+        let session = AVAudioSession.sharedInstance()
+        
+        do {
+            // 设置后台播放
+            try session.setCategory(AVAudioSessionCategoryPlayback)
+            
+            // 激活会话
+            try session.setActive(true)
+        } catch {
+            print(error)
+        }
+        
+        
         return true
     }
 

@@ -9,8 +9,9 @@
 import UIKit
 import Masonry
 import AVFoundation
+import MediaPlayer
 
-class ADPlayingViewController: UIViewController, UIScrollViewDelegate {
+class ADPlayingViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate {
     
     @IBOutlet weak var albumView: UIImageView!
     @IBOutlet weak var iconView: UIImageView!
@@ -24,8 +25,15 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate {
     
     // 歌词的view
     @IBOutlet weak var lrcView: ADLrcView!
+    
+    // 播放/暂停键
     @IBOutlet weak var playOrPauseBtn: UIButton!
+    
+    // 转盘下面歌词的label
     @IBOutlet weak var lrcLabel: ADLrcLabel!
+    
+    var isLrcShowing = false
+    
     
 
     // 当前歌曲的播放器
@@ -55,8 +63,28 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate {
         // 设置lrcView的contentSize
         self.lrcView.contentSize = CGSize(width: self.view.bounds.width * 2, height: 0)
         
+        // 给lrcView设置tapGesture
+//        let tgr = UITapGestureRecognizer(target: self, action: #selector(tapLrcView))
+//        self.lrcView.addGestureRecognizer(tgr)
+        
         // 让storyboard里的lrcLabel和lrcView里的lrcLabel同步
         self.lrcView.lrcLabel = self.lrcLabel
+        
+        // 给lrcView的updateProgress闭包赋值
+        self.lrcView.updateProgress = { [weak self] (time: TimeInterval) -> () in
+            self?.currentPlayer!.currentTime = time
+            self?.updateProgress()
+        }
+    }
+    
+    // MARK: lrcView的tapGesture
+    @objc private func tapLrcView() {
+        if self.isLrcShowing {
+            self.lrcView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+        } else {
+            self.lrcView.setContentOffset(CGPoint(x: self.lrcView.bounds.width, y: 0), animated: false)
+        }
+        self.isLrcShowing = !self.isLrcShowing
     }
     
     override func viewWillLayoutSubviews() {
@@ -108,8 +136,9 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate {
         self.currentTimeLabel.text = String(time: player.currentTime)
         self.playOrPauseBtn.isSelected = self.currentPlayer!.isPlaying
         
-        // 更新歌词
+        // 更新歌词, 歌曲总时长
         self.lrcView.lrcname = playingMusic.lrcname!
+        self.lrcView.duration = player.duration
         
         // 开始播放的动画
 //        self.startAnimation()
@@ -120,6 +149,9 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate {
         addProgressTimer()
         removeLrcTimer()
         addLrcTimer()
+        
+        // 设置锁屏界面的信息
+//        self.setupLockScreenInfo()
     }
     
     
@@ -161,9 +193,11 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate {
         
         // 播放完一首歌默认自动播放下一首
         if Int(self.currentPlayer!.currentTime) >= Int(self.currentPlayer!.duration) - 1 {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: { 
-                self.next(nil)
-            })
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: { 
+//                self.next(nil)
+//            })
+            
+            self.next(nil)
         }
     }
     
@@ -221,7 +255,7 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate {
         self.playMusic(with: previousMusic)
     }
     
-    @IBAction func playOrPause(_ sender: UIButton) {
+    @IBAction func playOrPause(_ sender: UIButton?) {
         // 暂停
         if self.currentPlayer!.isPlaying {
             self.currentPlayer!.pause()
@@ -275,6 +309,49 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate {
         // 设置iconView和歌词的label的透明度
         self.iconView.alpha = ratio
         self.lrcLabel.alpha = ratio
-        
+    }
+    
+    // MARK: 设置锁屏界面. 在ADLrcView里面设置锁屏界面更好
+    private func setupLockScreenInfo() {
+//        // 获取当前正在播放的歌曲
+//        let playingMusic = ADMusicPlayingTool.getPlayingMusic()
+//        
+//        // 获取锁屏界面中心
+//        let center = MPNowPlayingInfoCenter.default()
+//        
+//        // 设置展示信息
+//        var playInfo = [String: Any]()
+//        playInfo[MPMediaItemPropertyAlbumTitle] = playingMusic.name!
+//        playInfo[MPMediaItemPropertyArtist] = playingMusic.singer!
+//        playInfo[MPMediaItemPropertyPlaybackDuration] = self.currentPlayer!.duration
+//        
+//        let artWork = MPMediaItemArtwork.init(image: UIImage(named: playingMusic.icon!)!)
+//        playInfo[MPMediaItemPropertyArtwork] = artWork
+//        center.nowPlayingInfo = playInfo
+//        
+//        // 让app可以接受远程事件
+//        UIApplication.shared.beginReceivingRemoteControlEvents()
+    }
+    
+    override func remoteControlReceived(with event: UIEvent?) {
+        switch event!.subtype {
+        case UIEventSubtype.remoteControlPlay:
+            self.playOrPause(nil)
+            break
+            
+        case UIEventSubtype.remoteControlPause:
+            self.playOrPause(nil)
+            break
+            
+        case UIEventSubtype.remoteControlNextTrack:
+            self.next(nil)
+            break
+        case UIEventSubtype.remoteControlPreviousTrack:
+            self.playOrPause(nil)
+            break
+            
+        default:
+            break
+        }
     }
 }

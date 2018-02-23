@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MediaPlayer
 
-class ADLrcView: UIScrollView, UITableViewDataSource {
+class ADLrcView: UIScrollView, UITableViewDataSource, UITableViewDelegate {
     // 当前播放的歌词的index
     var currentIndex: Int = 0
 
@@ -41,6 +42,10 @@ class ADLrcView: UIScrollView, UITableViewDataSource {
                     
                     // 设置外面歌词的label的显示歌词
                     self.lrcLabel!.text = curLine.text
+                    
+                    
+                    // 生成锁屏界面的图片
+                    self.generateLockImage()
 
                     break
                 }
@@ -65,7 +70,9 @@ class ADLrcView: UIScrollView, UITableViewDataSource {
     
     
     var lrcLabel: ADLrcLabel?
-    var duration: CGFloat?
+    
+    // 当前歌曲的总时长
+    var duration: TimeInterval?
     
     var lrcname: String? {
         didSet {
@@ -80,8 +87,11 @@ class ADLrcView: UIScrollView, UITableViewDataSource {
         }
     }
     
+    // 用来更新歌曲进度
+    var updateProgress: ((_ time: TimeInterval) -> ())?
     
-
+    
+    // MARK: constructor 构造方法
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupTableView()
@@ -96,13 +106,6 @@ class ADLrcView: UIScrollView, UITableViewDataSource {
     
     // 添加歌词的tableView
     private func setupTableView() {
-//        let tv = UITableView()
-//        tv.dataSource = self
-//        //        tv.backgroundColor = UIColor.clear    // 这里设置无用, 因为tv还没有尺寸
-//        tv.rowHeight = 35
-//        //        tv.separatorStyle = UITableViewCellSeparatorStyle.none  // 这里设置无用, 因为tv还没有尺寸
-//        tv.showsVerticalScrollIndicator = false
-//        self.tableView = tv
         self.addSubview(self.tableView)
         
         // tableView的约束应该放入layoutSubviews()方法
@@ -146,13 +149,24 @@ class ADLrcView: UIScrollView, UITableViewDataSource {
         return cell
     }
     
-    // MARK:
     
+    // MARK: UITableViewDelegate 代理
+    // 选择某一个cell, 歌曲进度就跳转到该cell的时间
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let lrcline: ADLrcline = self.lrcList[indexPath.row]
+        
+        if let update = self.updateProgress {
+            update(lrcline.time!)
+        }
+    }
+    
+
     
     // MARK: 懒加载
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.dataSource = self
+        tv.delegate = self
 //        tv.backgroundColor = UIColor.clear    // 这里设置无用, 因为tv还没有尺寸
         tv.rowHeight = 35
 //        tv.separatorStyle = UITableViewCellSeparatorStyle.none  // 这里设置无用, 因为tv还没有尺寸
@@ -162,4 +176,78 @@ class ADLrcView: UIScrollView, UITableViewDataSource {
     
     
     lazy var lrcList = [ADLrcline]()
+    
+    
+    // MARK: 锁屏相关
+    
+    private func generateLockImage() {
+        // 当前歌曲的图片
+        let playingMusic = ADMusicPlayingTool.getPlayingMusic()
+        let curImage = UIImage(named: playingMusic.icon!)!
+        
+        // 拿到当前歌词, 前一句歌词和后一句歌词
+        let curLine = self.lrcList[self.currentIndex]
+        
+        let previousIndex = self.currentIndex - 1
+        var previousLine: ADLrcline?
+        if previousIndex >= 0 {
+            previousLine = self.lrcList[previousIndex]
+        }
+        
+        let nextIndex = self.currentIndex + 1
+        var nextLine: ADLrcline?
+        if nextIndex < self.lrcList.count {
+            nextLine = self.lrcList[nextIndex]
+        }
+        
+        // 生成水印图片
+        UIGraphicsBeginImageContext(curImage.size)
+        
+        // 画图片
+        curImage.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: curImage.size))
+        
+        // 画歌词
+        // 前一句, 后一句
+        let titleH: CGFloat = 25
+        
+        // 居中
+        let style = NSMutableParagraphStyle()   // 不能用NSParagraphStyle, 因为其alignment是readonly
+        style.alignment = NSTextAlignment.center
+        
+        let attrs1 = [NSFontAttributeName: UIFont.systemFont(ofSize: 14.0), NSForegroundColorAttributeName: UIColor.lightGray, NSParagraphStyleAttributeName: style]
+        previousLine?.text?.draw(in: CGRect(x: 0, y: curImage.size.height - titleH * 3, width: curImage.size.width, height: titleH), withAttributes: attrs1)
+        nextLine?.text?.draw(in: CGRect(x: 0, y: curImage.size.height - titleH, width: curImage.size.width, height: titleH), withAttributes: attrs1)
+        
+        // 当前句
+        let attrs2 = [NSFontAttributeName: UIFont.systemFont(ofSize: 16.0), NSForegroundColorAttributeName: UIColor.white, NSParagraphStyleAttributeName: style]
+        curLine.text!.draw(in: CGRect(x: 0, y: curImage.size.height - titleH * 2, width: curImage.size.width, height: titleH), withAttributes: attrs2)
+        
+        // 生成图片
+        let lockImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        // 设置锁屏信息
+        self.setupLockScreenInfo(with: lockImage!)
+    }
+    
+    private func setupLockScreenInfo(with lockImage: UIImage) {
+        // 获取当前正在播放的歌曲
+        let playingMusic = ADMusicPlayingTool.getPlayingMusic()
+        
+        // 获取锁屏界面中心
+        let center = MPNowPlayingInfoCenter.default()
+        
+        // 设置展示信息
+        var playInfo = [String: Any]()
+        playInfo[MPMediaItemPropertyAlbumTitle] = playingMusic.name!
+        playInfo[MPMediaItemPropertyArtist] = playingMusic.singer!
+        playInfo[MPMediaItemPropertyPlaybackDuration] = self.duration!
+        playInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.currentTime!
+        
+        let artWork = MPMediaItemArtwork(image: lockImage)
+        playInfo[MPMediaItemPropertyArtwork] = artWork
+        center.nowPlayingInfo = playInfo
+        
+        // 让app可以接受远程事件
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+    }
 }
