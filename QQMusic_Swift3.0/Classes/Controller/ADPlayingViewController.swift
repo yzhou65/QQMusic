@@ -11,7 +11,7 @@ import Masonry
 import AVFoundation
 import MediaPlayer
 
-class ADPlayingViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate {
+class ADPlayingViewController: UIViewController, UIScrollViewDelegate, AVAudioPlayerDelegate {
     
     @IBOutlet weak var albumView: UIImageView!
     @IBOutlet weak var iconView: UIImageView!
@@ -129,6 +129,7 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate, UITableVi
         
         // 播放音乐
         let player = ADAudioTool.audioPlayWith(musicName: playingMusic.filename!)
+        player.delegate = self
         self.currentPlayer = player
         
         // 更新子控件文字, 播放按钮状态
@@ -191,14 +192,14 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate, UITableVi
         // 更新slider
         self.progressSlider.value = Float(self.currentPlayer!.currentTime) / Float(self.currentPlayer!.duration)
         
-        // 播放完一首歌默认自动播放下一首
-        if Int(self.currentPlayer!.currentTime) >= Int(self.currentPlayer!.duration) - 1 {
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: { 
-//                self.next(nil)
-//            })
-            
-            self.next(nil)
-        }
+        // 播放完一首歌默认自动播放下一首. 不要在这里判断, 而用AVAudioPlayer代理更好
+//        if Int(self.currentPlayer!.currentTime) >= Int(self.currentPlayer!.duration) - 1 {
+////            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: { 
+////                self.next(nil)
+////            })
+//            
+//            self.next(nil)
+//        }
     }
     
     // 更新歌词的切换. 放入了CADisplayLink里, 那么1秒就会调用60次
@@ -299,7 +300,7 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate, UITableVi
     }()
     
     
-    // MARK: UIScrollViewDelegate
+    // MARK: UIScrollViewDelegate代理
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 获取滑动的偏移量
         let point = scrollView.contentOffset
@@ -309,6 +310,13 @@ class ADPlayingViewController: UIViewController, UIScrollViewDelegate, UITableVi
         // 设置iconView和歌词的label的透明度
         self.iconView.alpha = ratio
         self.lrcLabel.alpha = ratio
+    }
+    
+    // MARK: AVAudioPlayerDelegate 代理
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if flag {
+            self.next(nil)
+        }
     }
     
     // MARK: 设置锁屏界面. 在ADLrcView里面设置锁屏界面更好
